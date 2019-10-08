@@ -120,6 +120,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     private void sendRegistrationToServer(String token) {
         // TODO: Implement this method to send token to your app server.
-        Toast.makeText(this, "need to send the new token to server", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "need to send the new token to server", Toast.LENGTH_SHORT).show();
     }
 }

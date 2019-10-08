@@ -19,7 +19,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
-public class OrderActivity extends AppCompatActivity implements OrderHelper {
+public class OrderActivity extends AppCompatActivity implements OrderHelper, OrderHelper.Image {
 
     TextView noData, price;
     ListView listView;
@@ -32,7 +32,8 @@ public class OrderActivity extends AppCompatActivity implements OrderHelper {
     DatabaseReference databaseReference;
 
     String userType;
-    private int totalPrice = 0;
+    private float totalPrice = 0;
+    private ViewImageFragment viewImageFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +64,7 @@ public class OrderActivity extends AppCompatActivity implements OrderHelper {
                 else {
                     noData.setVisibility(View.GONE);
 
-                    orderAdapter = new OrderAdapter(OrderActivity.this
+                    orderAdapter = new OrderAdapter(OrderActivity.this, OrderActivity.this
                             , OrderActivity.this, products_list
                             , "OrderItem");
                     listView.setAdapter(orderAdapter);
@@ -107,8 +108,28 @@ public class OrderActivity extends AppCompatActivity implements OrderHelper {
         int[] productsQuantities = orderAdapter.productsQuantities;
 
         for (int i = 0; i < products_list.size(); i++) {
-            totalPrice += productsQuantities[i] * Integer.parseInt(products_list.get(i).price);
+            totalPrice += productsQuantities[i] * Float.parseFloat(products_list.get(i).price);
         }
         price.setText(totalPrice + "");
+    }
+
+    @Override
+    public void imageClicked(String image_path) {
+        viewImageFragment= new ViewImageFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("image_path",  image_path);
+        viewImageFragment.setArguments(bundle);
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, viewImageFragment).commit();
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        if (viewImageFragment != null) {
+            getSupportFragmentManager().beginTransaction().detach(viewImageFragment).commit();
+            viewImageFragment = null;
+        }else
+            super.onBackPressed();
     }
 }

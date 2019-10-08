@@ -1,92 +1,167 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layoutDirection="rtl"
-    android:fillViewport="true"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:fillViewport="true"
+    android:layoutDirection="rtl"
     tools:context=".ConfirmOrderDialogFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    <LinearLayout
-        android:id="@+id/dialogTitleLinear"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:background="@color/colorPrimary"
-        android:gravity="center"
-        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/dialogTitle"
+        <LinearLayout
+            android:id="@+id/dialogTitleLinear"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/dialogTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="تاكيد الطلب"
+                android:textColor="@color/yellow"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/listView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/dialogTitleLinear" />
+
+        <RelativeLayout
+            android:id="@+id/totalPriceRelative"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/listView"
+            android:layout_gravity="bottom"
+            android:gravity="center"
+            android:padding="7dp">
+
+            <TextView
+                android:id="@+id/egmaly"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:text="الاجمالي: "
+                android:textColor="@color/yellow"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/totalPrice_TV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_toLeftOf="@+id/egmaly"
+                android:text="  "
+                android:textColor="@color/colorPrimary"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_toLeftOf="@+id/totalPrice_TV"
+                android:text="جنية"
+                android:textColor="@color/yellow"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <CheckBox
+            android:id="@+id/checkbox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="تاكيد الطلب"
-            android:textColor="@color/yellow"
+            android:layout_below="@+id/totalPriceRelative"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_centerHorizontal="true"
+            android:text="استبدال نقاطك"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:background="@color/grey_toolbar"
+            android:shadowColor="@color/nbety"
+            android:textColor="@color/nbety"
             android:textSize="20sp"
             android:textStyle="bold" />
 
-    </LinearLayout>
-
-    <ListView
-        android:id="@+id/listView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/dialogTitleLinear" />
-
-    <RelativeLayout
-        android:id="@+id/totalPriceRelative"
-        android:layout_width="match_parent"
-        android:layout_below="@+id/listView"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:gravity="center"
-        android:padding="7dp">
-
         <TextView
-            android:id="@+id/egmaly"
+            android:id="@+id/isReplacePoints"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:text="الاجمالي: "
-            android:textColor="@color/yellow"
+            android:text="اذا استبدلت نقاطك يصبح"
+            android:textColor="@color/nbety"
+
             android:textSize="20sp"
+            android:layout_below="@+id/checkbox"
+            android:layout_centerHorizontal="true"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/totalPrice_TV"
+        <RelativeLayout
+            android:id="@+id/totalPriceRelative2"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/isReplacePoints"
+            android:padding="7dp">
+
+            <TextView
+                android:id="@+id/egmaly2"
+                android:layout_below="@+id/isReplacePoints"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:text="الاجمالي: "
+                android:textColor="@color/nbety"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/totalPrice_TV2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/isReplacePoints"
+                android:layout_marginLeft="10dp"
+                android:layout_toLeftOf="@+id/egmaly2"
+                android:text="  "
+                android:textColor="@color/colorPrimary"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_toLeftOf="@+id/totalPrice_TV2"
+                android:layout_below="@+id/isReplacePoints"
+                android:text="جنية"
+                android:textColor="@color/nbety"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/order_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_toLeftOf="@+id/egmaly"
-            android:text="  "
-            android:textColor="@color/colorPrimary"
-            android:textSize="20sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_toLeftOf="@+id/totalPrice_TV"
-            android:text="جنية"
-            android:textColor="@color/yellow"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-    </RelativeLayout>
-
-    <Button
-        android:id="@+id/order_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/totalPriceRelative"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="30dp"
-        android:background="@color/yellow"
-        android:text="اطلب"
-        android:textColor="@color/white" />
+            android:layout_below="@+id/totalPriceRelative2"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="20dp"
+            android:background="@color/yellow"
+            android:text="اطلب"
+            android:textColor="@color/white" />
     </RelativeLayout>
 </ScrollView>

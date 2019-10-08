@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layoutDirection="rtl"
     android:background="@drawable/gradientbackground"
+    android:layoutDirection="rtl"
     android:orientation="vertical"
     tools:context=".ContactUsActivity">
 
@@ -18,87 +18,208 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginBottom="30dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
             android:layout_marginTop="25dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="30dp"
             android:text="شركة النسر"
             android:textColor="@color/nbety"
             android:textSize="36sp"
             android:textStyle="bold" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:text="رقم الهاتف"
-            android:textColor="@color/colorPrimary"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/mobileNumber"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:textColor="@color/nbety"
-            android:textSize="17sp" />
-
-        <EditText
-            android:id="@+id/mobileNumberEditText"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp"
-            android:inputType="number"
-            android:layout_marginLeft="30dp"
-            android:maxLines="1"
-            android:layout_marginRight="30dp"
-            android:textColor="@color/nbety"
-            android:textSize="170sp"
-            android:visibility="gone" />
+            android:layout_marginBottom="20dp"
+            android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:text="البريد الالكتروني"
-            android:textColor="@color/colorPrimary"
-            android:textSize="20sp" />
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:layout_marginRight="10dp"
+                app:srcCompat="@drawable/ic_phone_black_24dp" />
 
-        <TextView
-            android:id="@+id/email"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:textColor="@color/nbety"
-            android:textSize="17sp" />
+            <TextView
+                android:id="@+id/mobileNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:textColor="@color/nbety"
+                android:textSize="17sp" />
 
-        <EditText
-            android:id="@+id/emailEditText"
+            <EditText
+                android:id="@+id/mobileNumberEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:inputType="number"
+                android:maxLines="1"
+                android:textColor="@color/nbety"
+                android:textSize="17sp"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxLines="1"
-            android:layout_marginBottom="30dp"
-            android:inputType="textEmailAddress"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            android:textColor="@color/nbety"
-            android:textSize="17sp"
-            android:visibility="gone" />
+            android:layout_marginBottom="20dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:layout_marginRight="10dp"
+                app:srcCompat="@drawable/ic_email_black_24dp" />
+
+            <TextView
+                android:id="@+id/email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_gravity="center"
+                android:textColor="@color/nbety"
+                android:textSize="17sp" />
+
+            <EditText
+                android:id="@+id/emailEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_gravity="center"
+                android:layout_marginRight="30dp"
+                android:inputType="textEmailAddress"
+                android:maxLines="1"
+                android:textColor="@color/nbety"
+                android:textSize="17sp"
+                android:visibility="gone" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:layout_marginRight="10dp"
+                app:srcCompat="@drawable/facebook" />
+
+            <TextView
+                android:id="@+id/facebook"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_gravity="center"
+                android:textColor="@color/nbety"
+                android:textSize="17sp" />
+
+            <EditText
+                android:id="@+id/facebookEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_gravity="center"
+                android:layout_marginRight="30dp"
+                android:inputType="textEmailAddress"
+                android:maxLines="1"
+                android:textColor="@color/nbety"
+                android:textSize="17sp"
+                android:visibility="gone" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:layout_marginRight="10dp"
+                app:srcCompat="@drawable/whatsapp" />
+
+            <TextView
+                android:id="@+id/whatsapp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_gravity="center"
+                android:textColor="@color/nbety"
+                android:textSize="17sp" />
+
+            <EditText
+                android:id="@+id/whatsappEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_gravity="center"
+                android:layout_marginRight="30dp"
+                android:inputType="textEmailAddress"
+                android:maxLines="1"
+                android:textColor="@color/nbety"
+                android:textSize="17sp"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:layout_marginRight="10dp"
+                app:srcCompat="@drawable/instagram" />
+
+            <TextView
+                android:id="@+id/instagram"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_gravity="center"
+                android:textColor="@color/nbety"
+                android:textSize="17sp" />
+
+            <EditText
+                android:id="@+id/instagramEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_gravity="center"
+                android:layout_marginRight="30dp"
+                android:inputType="textEmailAddress"
+                android:maxLines="1"
+                android:textColor="@color/nbety"
+                android:textSize="17sp"
+                android:visibility="gone" />
+        </LinearLayout>
     </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/done_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|left"
-        android:id="@+id/done_fab"
         android:layout_margin="18dp"
         android:visibility="gone"
         app:srcCompat="@drawable/ic_done_black_24dp" />

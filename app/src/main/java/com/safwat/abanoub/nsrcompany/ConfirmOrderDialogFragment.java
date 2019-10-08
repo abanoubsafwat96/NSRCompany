@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,7 +32,8 @@ import androidx.fragment.app.DialogFragment;
 public class ConfirmOrderDialogFragment extends DialogFragment {
 
     ListView listView;
-    TextView totalPrice_TV;
+    CheckBox checkBox;
+    TextView totalPrice_TV, totalPrice_TV2;
     Button order_btn;
 
     ArrayList<Product> products_list;
@@ -40,8 +43,8 @@ public class ConfirmOrderDialogFragment extends DialogFragment {
     private DatabaseReference databaseReference, myCurrentPointsReference, pointsReference;
     private ValueEventListener myCurrentPointsEventListener;
     private PointsItem pointsItems;
-    private int totalPrice;
-    private int earnedPoints, myCurrentPoints;
+    private int earnedPoints, myCurrentPoints, newMyCurrentPoints;
+    float totalPrice,discount;
     private ProgressDialog progressDialog1;
 
     /**
@@ -51,7 +54,7 @@ public class ConfirmOrderDialogFragment extends DialogFragment {
      * 2. setter to initialize your object
      * 3. and add setRetainInstance(true); in onCreate
      */
-    static ConfirmOrderDialogFragment newInstance(ArrayList<Product> products_list, int[] productsQuantities, int totalPrice) {
+    static ConfirmOrderDialogFragment newInstance(ArrayList<Product> products_list, int[] productsQuantities, float totalPrice) {
 
         ConfirmOrderDialogFragment f = new ConfirmOrderDialogFragment();
         f.products_list = products_list;
@@ -79,7 +82,9 @@ public class ConfirmOrderDialogFragment extends DialogFragment {
         View view = inflater.inflate(R.layout.confirm_order_dialog, container, false);
 
         listView = view.findViewById(R.id.listView);
+        checkBox = view.findViewById(R.id.checkbox);
         totalPrice_TV = view.findViewById(R.id.totalPrice_TV);
+        totalPrice_TV2 = view.findViewById(R.id.totalPrice_TV2);
         order_btn = view.findViewById(R.id.order_btn);
 
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -98,10 +103,99 @@ public class ConfirmOrderDialogFragment extends DialogFragment {
             }
         }
 
-        OrderAdapter adapter = new OrderAdapter(getContext(), products_list2, productsQuantities2, "ConfirmOrder");
+        OrderAdapter adapter = new OrderAdapter(getContext(), null, null
+                , products_list2, productsQuantities2, "ConfirmOrder");
         listView.setAdapter(adapter);
-        Utilities.getTotalHeightofListView(listView,200);
-        totalPrice_TV.setText(totalPrice + "");
+        Utilities.getTotalHeightofListView(listView, 200);
+
+        progressDialog1.show();
+
+        //points
+        pointsReference = firebaseDatabase.getReference().child("Points");
+        pointsReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                pointsItems = Utilities.getPointsItems(dataSnapshot);
+
+                if (pointsItems != null) {
+
+                    if (totalPrice >= Integer.parseInt(pointsItems.line1Number1)
+                            && totalPrice <= Integer.parseInt(pointsItems.line1Number2))
+                        earnedPoints = Integer.parseInt(pointsItems.line1Number3);
+
+                    else if (totalPrice >= Integer.parseInt(pointsItems.line2Number1)
+                            && totalPrice <= Integer.parseInt(pointsItems.line2Number2))
+                        earnedPoints = Integer.parseInt(pointsItems.line2Number3);
+
+                    else if (totalPrice >= Integer.parseInt(pointsItems.line3Number1)
+                            && totalPrice <= Integer.parseInt(pointsItems.line3Number2))
+                        earnedPoints = Integer.parseInt(pointsItems.line3Number3);
+
+                    else if (totalPrice >= Integer.parseInt(pointsItems.line4Number1)
+                            && totalPrice <= Integer.parseInt(pointsItems.line4Number2))
+                        earnedPoints = Integer.parseInt(pointsItems.line4Number3);
+
+                    else if (totalPrice >= Integer.parseInt(pointsItems.line5Number1)
+                            && totalPrice <= Integer.parseInt(pointsItems.line5Number2))
+                        earnedPoints = Integer.parseInt(pointsItems.line5Number3);
+                    else
+                        earnedPoints = 0;
+
+                    myCurrentPointsReference = firebaseDatabase.getReference().child("Users")
+                            .child(Utilities.getCurrentUID()).child("points");
+
+                    myCurrentPointsEventListener = new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            String currentPoints = Utilities.getValueIfNotNull(dataSnapshot);
+
+                            if (currentPoints != null)
+                                myCurrentPoints = Integer.parseInt(currentPoints);
+                            else
+                                myCurrentPoints = 0;
+
+                            newMyCurrentPoints = myCurrentPoints + earnedPoints;
+
+                            discount = newMyCurrentPoints * Float.parseFloat(pointsItems.pointPrice);
+
+                            totalPrice_TV.setText(totalPrice + "");
+                            totalPrice_TV2.setText((totalPrice - discount) + "");
+
+                            if (progressDialog1.isShowing()) {
+                                progressDialog1.dismiss();
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    };
+                    myCurrentPointsReference.addValueEventListener(myCurrentPointsEventListener);
+
+                } else
+                    Toast.makeText(getContext(), "خطأ بسبب مشكلة في النقاط", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                if (isChecked) {
+                    if (newMyCurrentPoints != 0 && pointsItems != null)
+                        discount = newMyCurrentPoints * Float.parseFloat(pointsItems.pointPrice);
+                } else {
+                    if (discount != 0)
+                        discount = 0;
+                }
+            }
+        });
 
         order_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,95 +204,53 @@ public class ConfirmOrderDialogFragment extends DialogFragment {
 
                     progressDialog1.show();
 
-                    pointsReference = firebaseDatabase.getReference().child("Points");
-                    pointsReference.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            pointsItems = Utilities.getPointsItems(dataSnapshot);
+                    if (pointsItems != null) {
 
-                            if (pointsItems != null) {
+                        databaseReference = firebaseDatabase.getReference().child("Orders").child(Utilities.getCurrentUID())
+                                .child(Calendar.getInstance().getTimeInMillis() + "");
 
-                                databaseReference = firebaseDatabase.getReference().child("Orders").child(Utilities.getCurrentUID())
-                                        .child(Calendar.getInstance().getTimeInMillis() + "");
+                        databaseReference.child("status").setValue("لم يبدأ تحضير طلبك بعد ...");
 
-                                databaseReference.child("status").setValue("لم يبدأ تحضير طلبك بعد ...");
+                        for (int i = 0; i < products_list2.size(); i++) {
 
-                                for (int i = 0; i < products_list2.size(); i++) {
+                            Product product = products_list2.get(i);
+                            OrderItem orderItem = new OrderItem(product.pushID, productsQuantities2.get(i).toString());
 
-                                    Product product = products_list2.get(i);
-                                    OrderItem orderItem = new OrderItem(product.pushID, productsQuantities2.get(i).toString());
-
-                                    String pushID = databaseReference.push().getKey();
-                                    databaseReference.child(pushID).setValue(orderItem);
-                                }
-
-                                //points
-                                if (totalPrice >= Integer.parseInt(pointsItems.line1Number1)
-                                        && totalPrice <= Integer.parseInt(pointsItems.line1Number2))
-                                    earnedPoints = Integer.parseInt(pointsItems.line1Number3);
-
-                                else if (totalPrice >= Integer.parseInt(pointsItems.line2Number1)
-                                        && totalPrice <= Integer.parseInt(pointsItems.line2Number2))
-                                    earnedPoints = Integer.parseInt(pointsItems.line2Number3);
-
-                                else if (totalPrice >= Integer.parseInt(pointsItems.line3Number1)
-                                        && totalPrice <= Integer.parseInt(pointsItems.line3Number2))
-                                    earnedPoints = Integer.parseInt(pointsItems.line3Number3);
-
-                                else if (totalPrice >= Integer.parseInt(pointsItems.line4Number1)
-                                        && totalPrice <= Integer.parseInt(pointsItems.line4Number2))
-                                    earnedPoints = Integer.parseInt(pointsItems.line4Number3);
-
-                                else if (totalPrice >= Integer.parseInt(pointsItems.line5Number1)
-                                        && totalPrice <= Integer.parseInt(pointsItems.line5Number2))
-                                    earnedPoints = Integer.parseInt(pointsItems.line5Number3);
-
-                                myCurrentPointsReference = firebaseDatabase.getReference().child("Users")
-                                        .child(Utilities.getCurrentUID()).child("points");
-
-                                myCurrentPointsEventListener = new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                        String currentPoints = Utilities.getValueIfNotNull(dataSnapshot);
-
-                                        if (currentPoints != null)
-                                            myCurrentPoints = Integer.parseInt(currentPoints);
-                                        else
-                                            myCurrentPoints = 0;
-
-                                        int newMyCurrentPoints = myCurrentPoints + earnedPoints;
-
-                                        if (myCurrentPoints != newMyCurrentPoints) {
-
-                                            myCurrentPointsReference.removeEventListener(myCurrentPointsEventListener);
-                                            myCurrentPointsReference.setValue(newMyCurrentPoints);
-                                        }
-                                        if (getContext()!=null)
-                                            Toast.makeText(getContext(), "تم الطلب بنجاح", Toast.LENGTH_SHORT).show();
-
-                                        if (progressDialog1.isShowing()) {
-                                            progressDialog1.dismiss();
-                                        }
-
-                                        dismiss();
-                                    }
-
-                                    @Override
-                                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                                    }
-                                };
-                                myCurrentPointsReference.addValueEventListener(myCurrentPointsEventListener);
-
-                            } else
-                                Toast.makeText(getContext(), "خطأ بسبب مشكلة في النقاط", Toast.LENGTH_SHORT).show();
+                            String pushID = databaseReference.push().getKey();
+                            databaseReference.child(pushID).setValue(orderItem);
                         }
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                        //notification ref edit to start cloud function
+                        DatabaseReference notif_ref = firebaseDatabase.getReference()
+                                .child("orderNotification").child("randomkey");
+                        notif_ref.setValue(notif_ref.push().getKey());
 
+                        //apply discount or not
+                        if (checkBox.isChecked()) {
+
+                            if (discount != 0)
+                                databaseReference.child("discount").setValue(discount + "");
+
+                            myCurrentPointsReference.setValue("0");
+                        }else {
+                            databaseReference.child("discount").setValue("0");
+
+                            if (myCurrentPoints != newMyCurrentPoints) {
+
+                                myCurrentPointsReference.removeEventListener(myCurrentPointsEventListener);
+                                myCurrentPointsReference.setValue(newMyCurrentPoints);
+                            }
                         }
-                    });
+
+                        if (getContext() != null)
+                            Toast.makeText(getContext(), "تم الطلب بنجاح", Toast.LENGTH_SHORT).show();
+
+                        if (progressDialog1.isShowing()) {
+                            progressDialog1.dismiss();
+                        }
+                    }
+                    dismiss();
+
                 } else
                     Toast.makeText(getContext(), R.string.check_internet_connection, Toast.LENGTH_SHORT).show();
             }

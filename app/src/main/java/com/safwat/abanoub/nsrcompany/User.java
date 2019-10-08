@@ -8,23 +8,16 @@ public class User implements Parcelable {
     public String fullname;
     public String phoneNumber;
     public String notifications_token;
+    public String points;
 
     public User() {
     }
 
-    public User(String fullname) {
-        this.fullname = fullname;
-    }
-
-    public User(String fullname, String phoneNumber) {
-        this.fullname = fullname;
-        this.phoneNumber = phoneNumber;
-    }
-
-    public User(String fullname, String phoneNumber, String notifications_token) {
+    public User(String fullname, String phoneNumber, String notifications_token,String points) {
         this.fullname = fullname;
         this.phoneNumber = phoneNumber;
         this.notifications_token=notifications_token;
+        this.points=points;
     }
 
     protected User(Parcel in) {
@@ -32,6 +25,7 @@ public class User implements Parcelable {
         fullname = in.readString();
         phoneNumber = in.readString();
         notifications_token=in.readString();
+        points=in.readString();
     }
 
     public static final Creator<User> CREATOR = new Creator<User>() {
@@ -57,5 +51,6 @@ public class User implements Parcelable {
         parcel.writeString(fullname);
         parcel.writeString(phoneNumber);
         parcel.writeString(notifications_token);
+        parcel.writeString(points);
     }
 }

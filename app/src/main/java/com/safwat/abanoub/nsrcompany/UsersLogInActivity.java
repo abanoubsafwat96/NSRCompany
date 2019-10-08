@@ -21,8 +21,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 
@@ -45,6 +48,7 @@ public class UsersLogInActivity extends AppCompatActivity {
     String codeSent;
 
     SharedPreferences.Editor editor;
+    private ValueEventListener valueEventListener;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -203,25 +207,44 @@ public class UsersLogInActivity extends AppCompatActivity {
                             Log.d("TAG", "signInWithCredential:success");
 
                             final String uid = task.getResult().getUser().getUid();
-                            FirebaseInstanceId.getInstance().getInstanceId()
-                                    .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                            
+                            databaseReference=firebaseDatabase.getReference().child("Users").child(uid);
+                            valueEventListener=new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    
+                                    final User old_user =Utilities.getUser(dataSnapshot);
+                                    
+                                    FirebaseInstanceId.getInstance().getInstanceId()
+                                            .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<InstanceIdResult> task) {
 
-                                            if (task.isSuccessful()) {
-                                                // Get new Instance ID token
-                                                String notifications_token = task.getResult().getToken();
+                                                    if (task.isSuccessful()) {
+                                                        // Get new Instance ID token
+                                                        String notifications_token = task.getResult().getToken();
 
-                                                User user = new User(fullname.getText().toString(), mobile.getText().toString(), notifications_token);
+                                                        User new_user = new User(fullname.getText().toString(),
+                                                                mobile.getText().toString(), notifications_token
+                                                                ,old_user.points);
 
-                                                databaseReference = firebaseDatabase.getReference().child("Users").child(uid);
-                                                databaseReference.setValue(user);
+                                                        databaseReference.removeEventListener(valueEventListener);
+                                                        databaseReference.setValue(new_user);
 
-                                                Toast.makeText(getApplicationContext(), "تم تسجيل الدخول", Toast.LENGTH_LONG).show();
-                                                setupSharedPreferences();
-                                            }
-                                        }
-                                    });
+                                                        Toast.makeText(getApplicationContext(), "تم تسجيل الدخول", Toast.LENGTH_LONG).show();
+                                                        setupSharedPreferences();
+                                                    }
+                                                }
+                                            });           
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                }
+                            };
+                            databaseReference.addValueEventListener(valueEventListener);
+                            
                         } else {
                             // Sign in failed, display a message and update the UI
                             Log.w("TAG", "signInWithCredential:failure", task.getException());

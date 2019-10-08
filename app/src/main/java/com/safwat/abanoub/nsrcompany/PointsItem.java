@@ -16,11 +16,12 @@ public class PointsItem {
     public String line5Number1;
     public String line5Number2;
     public String line5Number3;
+    public String pointPrice;
 
     public PointsItem() {
     }
 
-    public PointsItem(String line1Number1, String line1Number2, String line1Number3, String line2Number1, String line2Number2, String line2Number3, String line3Number1, String line3Number2, String line3Number3, String line4Number1, String line4Number2, String line4Number3, String line5Number1, String line5Number2, String line5Number3) {
+    public PointsItem(String line1Number1, String line1Number2, String line1Number3, String line2Number1, String line2Number2, String line2Number3, String line3Number1, String line3Number2, String line3Number3, String line4Number1, String line4Number2, String line4Number3, String line5Number1, String line5Number2, String line5Number3,String pointPrice) {
         this.line1Number1 = line1Number1;
         this.line1Number2 = line1Number2;
         this.line1Number3 = line1Number3;
@@ -36,5 +37,6 @@ public class PointsItem {
         this.line5Number1 = line5Number1;
         this.line5Number2 = line5Number2;
         this.line5Number3 = line5Number3;
+        this.pointPrice = pointPrice;
     }
 }

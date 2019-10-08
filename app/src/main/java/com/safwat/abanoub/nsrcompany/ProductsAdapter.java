@@ -18,10 +18,12 @@ import androidx.fragment.app.FragmentActivity;
 class ProductsAdapter extends BaseAdapter {
 
     Context context;
+    OrderHelper.Image orderImageImage;
     ArrayList<Product> list;
 
-    public ProductsAdapter(Context context, ArrayList<Product> list) {
+    public ProductsAdapter(Context context, OrderHelper.Image orderImageImage, ArrayList<Product> list) {
         this.context = context;
+        this.orderImageImage=orderImageImage;
         this.list = list;
     }
 
@@ -63,8 +65,7 @@ class ProductsAdapter extends BaseAdapter {
         image_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DialogFragment dialog = ViewImageDialogFragment.newInstance(image);
-                dialog.show(((FragmentActivity) context).getSupportFragmentManager(), "tag");
+                orderImageImage.imageClicked(image);
             }
         });
 

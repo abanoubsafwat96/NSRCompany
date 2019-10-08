@@ -14,32 +14,34 @@ import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
-import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.FragmentActivity;
-
 class OrderAdapter extends BaseAdapter {
 
     Context context;
     OrderHelper orderHelper;
+    OrderHelper.Image orderHelperImage;
     ArrayList<Product> products_list;
     ArrayList<Integer> productsQuantities2;
     String usingType;
 
     int[] productsQuantities;
 
-    public OrderAdapter(Context context, OrderHelper orderHelper, ArrayList<Product> products_list, String usingType) {
+    public OrderAdapter(Context context, OrderHelper orderHelper, OrderHelper.Image orderHelperImage,
+                        ArrayList<Product> products_list, String usingType) {
 
         this.context = context;
         this.orderHelper = orderHelper;
+        this.orderHelperImage = orderHelperImage;
         this.products_list = products_list;
         this.usingType = usingType;
 
         productsQuantities = new int[products_list.size()];
     }
 
-    public OrderAdapter(Context context, ArrayList<Product> products_list, ArrayList<Integer> productsQuantities2
-            , String usingType) {
+    public OrderAdapter(Context context, OrderHelper orderHelper, OrderHelper.Image orderHelperImage
+            , ArrayList<Product> products_list, ArrayList<Integer> productsQuantities2, String usingType) {
         this.context = context;
+        this.orderHelper = orderHelper;
+        this.orderHelperImage = orderHelperImage;
         this.products_list = products_list;
         this.productsQuantities2 = productsQuantities2;
         this.usingType = usingType;
@@ -76,7 +78,7 @@ class OrderAdapter extends BaseAdapter {
         final String image = product.image;
         final ImageView image_view = (ImageView) view.findViewById(R.id.image);
 
-        if (image != null&&context!=null)
+        if (image != null && context != null)
             Glide.with(context)
                     .load(image)
                     .into(image_view);
@@ -86,8 +88,10 @@ class OrderAdapter extends BaseAdapter {
         image_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DialogFragment dialog = ViewImageDialogFragment.newInstance(image);
-                dialog.show(((FragmentActivity) context).getSupportFragmentManager(), "tag");
+
+                if (!usingType.equals("ConfirmOrder")) {
+                    orderHelperImage.imageClicked(image);
+                }
             }
         });
 
@@ -128,7 +132,6 @@ class OrderAdapter extends BaseAdapter {
                 ((TextView) view.findViewById(R.id.dasta)).setTextColor(context.getResources().getColor(R.color.white));
             }
         }
-
 
         return view;
     }

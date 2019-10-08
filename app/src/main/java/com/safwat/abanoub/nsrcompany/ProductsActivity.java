@@ -22,7 +22,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
-public class ProductsActivity extends AppCompatActivity {
+public class ProductsActivity extends AppCompatActivity implements OrderHelper.Image{
 
     TextView noData;
     FloatingActionButton add_btn;
@@ -34,6 +34,7 @@ public class ProductsActivity extends AppCompatActivity {
     DatabaseReference databaseReference;
 
     String userType;
+    private ViewImageFragment viewImageFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +66,8 @@ public class ProductsActivity extends AppCompatActivity {
                 else {
                     noData.setVisibility(View.GONE);
 
-                    productsAdapter = new ProductsAdapter(ProductsActivity.this, list);
+                    productsAdapter = new ProductsAdapter(ProductsActivity.this,ProductsActivity.this
+                            , list);
                     listView.setAdapter(productsAdapter);
                 }
             }
@@ -130,5 +132,25 @@ public class ProductsActivity extends AppCompatActivity {
                 dialog.show(getSupportFragmentManager(), "tag");
             }
         });
+    }
+
+    @Override
+    public void imageClicked(String image_path) {
+        viewImageFragment= new ViewImageFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("image_path",  image_path);
+        viewImageFragment.setArguments(bundle);
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, viewImageFragment).commit();
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        if (viewImageFragment != null) {
+            getSupportFragmentManager().beginTransaction().detach(viewImageFragment).commit();
+            viewImageFragment = null;
+        }else
+            super.onBackPressed();
     }
 }

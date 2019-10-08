@@ -17,14 +17,16 @@ import java.util.ArrayList;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class PreviousOrders2Activity extends AppCompatActivity {
+public class PreviousOrders2Activity extends AppCompatActivity implements OrderHelper.Image {
 
     ListView listView;
     TextView price, status;
 
     FirebaseDatabase firebaseDatabase;
-    DatabaseReference databaseReference, statusReference;
+    DatabaseReference orderReference;
     private String userType;
+    private ViewImageFragment viewImageFragment;
+    private float totalPrice;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,15 +57,15 @@ public class PreviousOrders2Activity extends AppCompatActivity {
             orderOwnerData_Relative.setVisibility(View.VISIBLE);
 
             //seen
-            statusReference = firebaseDatabase.getReference().child("Orders").child(orderOwner.uid)
-                    .child(order_date_in_milliSeconds).child("status");
-            statusReference.addValueEventListener(new ValueEventListener() {
+            orderReference = firebaseDatabase.getReference().child("Orders").child(orderOwner.uid)
+                    .child(order_date_in_milliSeconds);
+            orderReference.child("status").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     String status = Utilities.getValueIfNotNull(dataSnapshot);
 
                     if (status.equals("لم يبدأ تحضير طلبك بعد ...")) {
-                        statusReference.setValue("جاري تحضير طلبك ...");
+                        orderReference.child("status").setValue("جاري تحضير طلبك ...");
                     }
                 }
 
@@ -73,14 +75,12 @@ public class PreviousOrders2Activity extends AppCompatActivity {
                 }
             });
 
-            databaseReference = firebaseDatabase.getReference().child("Orders")
-                    .child(orderOwner.uid).child(order_date_in_milliSeconds);
         } else {
-            databaseReference = firebaseDatabase.getReference().child("Orders")
+            orderReference = firebaseDatabase.getReference().child("Orders")
                     .child(Utilities.getCurrentUID()).child(order_date_in_milliSeconds);
         }
 
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        orderReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 final ArrayList<OrderItem> orderItems_list = Utilities.getOrderItems(dataSnapshot);
@@ -105,15 +105,32 @@ public class PreviousOrders2Activity extends AppCompatActivity {
 
                                     if (position == orderItems_list.size() - 1) {
                                         OrderAdapter orderAdapter = new OrderAdapter(PreviousOrders2Activity.this
+                                                ,null,PreviousOrders2Activity.this
                                                 , products_list, productsQuantities, "PreviousOrder");
                                         listView.setAdapter(orderAdapter);
                                         Utilities.getTotalHeightofListView(listView, 500);
 
-                                        int totalPrice = 0;
+                                        totalPrice = 0;
                                         for (int i = 0; i < products_list.size(); i++) {
-                                            totalPrice += Integer.parseInt(products_list.get(i).price) * productsQuantities.get(i);
+                                            totalPrice += Float.parseFloat(products_list.get(i).price) * productsQuantities.get(i);
                                         }
-                                        price.setText(totalPrice + "");
+
+                                        orderReference.child("discount").addValueEventListener(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                String discount=Utilities.getValueIfNotNull(dataSnapshot);
+
+                                                if (discount==null)
+                                                    discount="0";
+
+                                                price.setText((totalPrice-Float.parseFloat(discount)) + "");
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                            }
+                                        });
                                     }
                                 }
 
@@ -132,7 +149,7 @@ public class PreviousOrders2Activity extends AppCompatActivity {
         });
 
         if (userType.equals("User")) {
-            databaseReference.child("status").addValueEventListener(new ValueEventListener() {
+            orderReference.child("status").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     String status_str = Utilities.getValueIfNotNull(dataSnapshot);
@@ -151,5 +168,25 @@ public class PreviousOrders2Activity extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    @Override
+    public void imageClicked(String image_path) {
+        viewImageFragment= new ViewImageFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("image_path",  image_path);
+        viewImageFragment.setArguments(bundle);
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, viewImageFragment).commit();
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        if (viewImageFragment != null) {
+            getSupportFragmentManager().beginTransaction().detach(viewImageFragment).commit();
+            viewImageFragment = null;
+        }else
+            super.onBackPressed();
     }
 }

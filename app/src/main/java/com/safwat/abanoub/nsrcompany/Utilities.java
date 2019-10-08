@@ -164,7 +164,7 @@ class Utilities {
             for (DataSnapshot child : dataSnapshot.getChildren()) {
 
                 String key=child.getKey();
-                if (!key.equals("status")) {
+                if (!key.equals("status")&&!key.equals("discount")) {
                     OrderItem orderItem = child.getValue(OrderItem.class);
                     orderItem.pushID = key;
 

@@ -213,6 +213,11 @@ public class RatesActivity extends AppCompatActivity {
                     firebaseDatabase.getReference().child("Rates").child(currentUID).child("comment")
                             .setValue(comment_str);
 
+                    //notification ref edit to start cloud function
+                    DatabaseReference notif_ref=firebaseDatabase.getReference()
+                            .child("rateNotification").child("randomkey");
+                    notif_ref.setValue(notif_ref.push().getKey());
+
                     Toast.makeText(RatesActivity.this, "تم الارسال بنجاح", Toast.LENGTH_SHORT).show();
                     finish();
                 }

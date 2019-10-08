@@ -66,6 +66,11 @@ public class PreviousOrdersActivity extends AppCompatActivity {
                     ordersOwners_UIDs = Utilities.getUIDs(dataSnapshot);
                     final ArrayList<User> orderOwners = new ArrayList<>();
 
+                    allOrdersDatesInMilliSeconds_list = new ArrayList<>();
+                    allOrdersDates_list = new ArrayList<>();
+                    allOrdersOwners_list = new ArrayList<>();
+                    allOrdersStatus_list = new ArrayList<>();
+
                     if (ordersOwners_UIDs.size() == 0)
                         noData.setVisibility(View.VISIBLE);
                     else {
@@ -88,11 +93,6 @@ public class PreviousOrdersActivity extends AppCompatActivity {
                                                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                                                             orders_dates_in_milliSeconds_list = Utilities.getUIDs(dataSnapshot);
-
-                                                            allOrdersDatesInMilliSeconds_list = new ArrayList<>();
-                                                            allOrdersDates_list = new ArrayList<>();
-                                                            allOrdersOwners_list = new ArrayList<>();
-                                                            allOrdersStatus_list = new ArrayList<>();
 
                                                             for (int j = 0; j < orders_dates_in_milliSeconds_list.size(); j++) {
 

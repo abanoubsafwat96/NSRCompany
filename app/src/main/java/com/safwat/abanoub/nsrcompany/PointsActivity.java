@@ -2,7 +2,9 @@ package com.safwat.abanoub.nsrcompany;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,13 +20,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class PointsActivity extends AppCompatActivity {
 
-    TextView line1Number1, line1Number2, line1Number3, line2Number1, line2Number2, line2Number3, line3Number1, line3Number2,
-            line3Number3, line4Number1, line4Number2, line4Number3, line5Number1, line5Number2, line5Number3;
+    TextView line1Number1, line1Number2, line1Number3, line2Number1, line2Number2, line2Number3, line3Number1
+            , line3Number2, line3Number3, line4Number1, line4Number2, line4Number3, line5Number1, line5Number2
+            , line5Number3,raseed, points, nokta,pointPrice;
     EditText line1Number1_ED, line1Number2_ED, line1Number3_ED, line2Number1_ED, line2Number2_ED, line2Number3_ED,
             line3Number1_ED, line3Number2_ED, line3Number3_ED, line4Number1_ED, line4Number2_ED, line4Number3_ED,
-            line5Number1_ED, line5Number2_ED, line5Number3_ED;
-    TextView raseed, points, nokta;
+            line5Number1_ED, line5Number2_ED, line5Number3_ED,pointPrice_ED;
     FloatingActionButton edit_fab, done_fab;
+    Button pointsNotify_btn;
 
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference, pointsReference;
@@ -76,6 +79,9 @@ public class PointsActivity extends AppCompatActivity {
         nokta = findViewById(R.id.nokta);
         edit_fab = findViewById(R.id.edit_fab);
         done_fab = findViewById(R.id.done_fab);
+        pointPrice= findViewById(R.id.pointPrice);
+        pointPrice_ED= findViewById(R.id.pointsPrice_ED);
+        pointsNotify_btn= findViewById(R.id.pointsNotify_btn);
 
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference().child("Points");
@@ -83,6 +89,7 @@ public class PointsActivity extends AppCompatActivity {
         if (userType.equals("Admin")) {
 
             edit_fab.setVisibility(View.VISIBLE);
+            pointsNotify_btn.setVisibility(View.VISIBLE);
 
         } else if (userType.equals("User")) {
 
@@ -130,12 +137,22 @@ public class PointsActivity extends AppCompatActivity {
                     line5Number1.setText(pointsItem.line5Number1);
                     line5Number2.setText(pointsItem.line5Number2);
                     line5Number3.setText(pointsItem.line5Number3);
+                    pointPrice.setText(pointsItem.pointPrice);
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
+            }
+        });
+
+        pointsNotify_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatabaseReference pointsNotify_ref=firebaseDatabase.getReference().child("pointsNotify");
+                String randomkey=pointsNotify_ref.push().getKey();
+                pointsNotify_ref.child("randomkey").setValue(randomkey);
             }
         });
 
@@ -160,6 +177,7 @@ public class PointsActivity extends AppCompatActivity {
                 line5Number1.setVisibility(View.GONE);
                 line5Number2.setVisibility(View.GONE);
                 line5Number3.setVisibility(View.GONE);
+                pointPrice.setVisibility(View.GONE);
 
                 line1Number1_ED.setText(line1Number1.getText());
                 line1Number2_ED.setText(line1Number2.getText());
@@ -176,6 +194,7 @@ public class PointsActivity extends AppCompatActivity {
                 line5Number1_ED.setText(line5Number1.getText());
                 line5Number2_ED.setText(line5Number2.getText());
                 line5Number3_ED.setText(line5Number3.getText());
+                pointPrice_ED.setText(pointPrice.getText());
 
                 line1Number1_ED.setVisibility(View.VISIBLE);
                 line1Number2_ED.setVisibility(View.VISIBLE);
@@ -192,9 +211,9 @@ public class PointsActivity extends AppCompatActivity {
                 line5Number1_ED.setVisibility(View.VISIBLE);
                 line5Number2_ED.setVisibility(View.VISIBLE);
                 line5Number3_ED.setVisibility(View.VISIBLE);
+                pointPrice_ED.setVisibility(View.VISIBLE);
             }
         });
-
 
         done_fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -217,6 +236,7 @@ public class PointsActivity extends AppCompatActivity {
                 line5Number1_ED.setVisibility(View.GONE);
                 line5Number2_ED.setVisibility(View.GONE);
                 line5Number3_ED.setVisibility(View.GONE);
+                pointPrice_ED.setVisibility(View.GONE);
 
                 line1Number1.setText(line1Number1_ED.getText());
                 line1Number2.setText(line1Number2_ED.getText());
@@ -233,6 +253,7 @@ public class PointsActivity extends AppCompatActivity {
                 line5Number1.setText(line5Number1_ED.getText());
                 line5Number2.setText(line5Number2_ED.getText());
                 line5Number3.setText(line5Number3_ED.getText());
+                pointPrice.setText(pointPrice_ED.getText());
 
                 line1Number1.setVisibility(View.VISIBLE);
                 line1Number2.setVisibility(View.VISIBLE);
@@ -249,13 +270,14 @@ public class PointsActivity extends AppCompatActivity {
                 line5Number1.setVisibility(View.VISIBLE);
                 line5Number2.setVisibility(View.VISIBLE);
                 line5Number3.setVisibility(View.VISIBLE);
+                pointPrice.setVisibility(View.VISIBLE);
 
                 PointsItem pointsItem = new PointsItem(line1Number1_ED.getText().toString(), line1Number2_ED.getText().toString(),
                         line1Number3_ED.getText().toString(), line2Number1_ED.getText().toString(), line2Number2_ED.getText().toString(),
                         line2Number3_ED.getText().toString(), line3Number1_ED.getText().toString(), line3Number2_ED.getText().toString(),
                         line3Number3_ED.getText().toString(), line4Number1_ED.getText().toString(), line4Number2_ED.getText().toString(),
                         line4Number3_ED.getText().toString(), line5Number1_ED.getText().toString(), line5Number2_ED.getText().toString(),
-                        line5Number3_ED.getText().toString());
+                        line5Number3_ED.getText().toString(),pointPrice_ED.getText().toString());
 
                 databaseReference.setValue(pointsItem);
 

@@ -1,104 +1,634 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradientbackground"
+    android:fillViewport="true"
     android:layoutDirection="rtl"
-    android:orientation="vertical"
     android:padding="20dp"
     tools:context=".PointsActivity">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent">
 
         <LinearLayout
+            android:id="@+id/linear1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="من "
-                android:textColor="@color/white"
-                android:textSize="18sp" />
+                android:layout_marginBottom="5dp"
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/line1Number1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="       "
-                android:textColor="@color/colorPrimary"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="من "
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
 
-            <EditText
-                android:id="@+id/line1Number1_ED"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:maxLines="1"
-                android:textColor="@color/colorPrimary"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:visibility="gone" />
+                <TextView
+                    android:id="@+id/line1Number1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="       "
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=" جنية الي "
-                android:textColor="@color/white"
-                android:textSize="18sp" />
+                <EditText
+                    android:id="@+id/line1Number1_ED"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
 
-            <TextView
-                android:id="@+id/line1Number2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="       "
-                android:textColor="@color/colorPrimary"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" جنية الي "
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
 
-            <EditText
-                android:id="@+id/line1Number2_ED"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:maxLines="1"
-                android:textColor="@color/colorPrimary"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:visibility="gone" />
+                <TextView
+                    android:id="@+id/line1Number2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="       "
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="wrap_content"
+                <EditText
+                    android:id="@+id/line1Number2_ED"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" جنية مشتريات "
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text=" جنية مشتريات "
-                android:textColor="@color/white"
-                android:textSize="18sp" />
+                android:layout_marginBottom="5dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="تكسب "
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/line1Number3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="  "
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/line1Number3_ED"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" نقطة"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginBottom="5dp"
+                android:background="@color/black" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="من "
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/line2Number1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="       "
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/line2Number1_ED"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" جنية الي "
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/line2Number2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="       "
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/line2Number2_ED"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" جنية مشتريات "
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="تكسب "
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+
+
+                <TextView
+                    android:id="@+id/line2Number3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="  "
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/line2Number3_ED"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" نقطة"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginBottom="5dp"
+                android:background="@color/black" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="من "
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/line3Number1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="       "
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/line3Number1_ED"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" جنية الي "
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/line3Number2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="       "
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/line3Number2_ED"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" جنية مشتريات "
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="تكسب "
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+
+
+                <TextView
+                    android:id="@+id/line3Number3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="  "
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/line3Number3_ED"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" نقطة"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginBottom="5dp"
+                android:background="@color/black" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="من "
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/line4Number1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="       "
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/line4Number1_ED"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" جنية الي "
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/line4Number2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="       "
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/line4Number2_ED"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" جنية مشتريات "
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="تكسب "
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+
+
+                <TextView
+                    android:id="@+id/line4Number3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="  "
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/line4Number3_ED"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" نقطة"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginBottom="5dp"
+                android:background="@color/black" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="من "
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/line5Number1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="       "
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/line5Number1_ED"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" جنية الي "
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/line5Number2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="       "
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/line5Number2_ED"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" جنية مشتريات "
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="تكسب "
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+
+
+                <TextView
+                    android:id="@+id/line5Number3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="  "
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/line5Number3_ED"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" نقطة"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginBottom="5dp"
+                android:background="@color/black" />
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/linear2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:layout_marginBottom="5dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@+id/linear1">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="تكسب "
+                android:text="سعر النقطة "
                 android:textColor="@color/white"
                 android:textSize="18sp" />
 
             <TextView
-                android:id="@+id/line1Number3"
+                android:id="@+id/pointPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="  "
@@ -107,10 +637,10 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/line1Number3_ED"
+                android:id="@+id/pointsPrice_ED"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:inputType="number"
+                android:inputType="numberDecimal"
                 android:maxLines="1"
                 android:textColor="@color/colorPrimary"
                 android:textSize="18sp"
@@ -120,506 +650,96 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=" نقطة"
+                android:text=" جنية"
                 android:textColor="@color/white"
                 android:textSize="18sp" />
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/linear3"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="5dp"
+            android:background="@color/black"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@+id/linear2" />
+
+        <Button
+            android:id="@+id/pointsNotify_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:orientation="horizontal">
+            android:layout_below="@+id/totalPriceRelative2"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="40dp"
+            android:background="@color/yellow"
+            android:text="ارسل تذكيرا بالنقاط للمستخدمين"
+            android:textColor="@color/white"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:textSize="20sp"
+            android:visibility="gone"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linear3" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="من "
-                android:textColor="@color/white"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/line2Number1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="       "
-                android:textColor="@color/colorPrimary"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/line2Number1_ED"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:maxLines="1"
-                android:textColor="@color/colorPrimary"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:visibility="gone" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=" جنية الي "
-                android:textColor="@color/white"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/line2Number2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="       "
-                android:textColor="@color/colorPrimary"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/line2Number2_ED"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:maxLines="1"
-                android:textColor="@color/colorPrimary"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:visibility="gone" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=" جنية مشتريات "
-                android:textColor="@color/white"
-                android:textSize="18sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/raseed"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:orientation="horizontal">
+            android:text="رصيد\nنقاطك "
+            android:textColor="@color/nbety"
+            android:textSize="25sp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/points"
+            app:layout_constraintLeft_toRightOf="@+id/points"
+            app:layout_constraintTop_toTopOf="@+id/points" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="تكسب "
-                android:textColor="@color/white"
-                android:textSize="18sp" />
-
-
-            <TextView
-                android:id="@+id/line2Number3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="  "
-                android:textColor="@color/colorPrimary"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/line2Number3_ED"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:maxLines="1"
-                android:textColor="@color/colorPrimary"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:visibility="gone" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=" نقطة"
-                android:textColor="@color/white"
-                android:textSize="18sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/points"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:orientation="horizontal">
+            android:text="  "
+            android:textColor="@color/colorPrimary"
+            android:textSize="50sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="من "
-                android:textColor="@color/white"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/line3Number1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="       "
-                android:textColor="@color/colorPrimary"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/line3Number1_ED"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:maxLines="1"
-                android:textColor="@color/colorPrimary"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:visibility="gone" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=" جنية الي "
-                android:textColor="@color/white"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/line3Number2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="       "
-                android:textColor="@color/colorPrimary"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/line3Number2_ED"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:maxLines="1"
-                android:textColor="@color/colorPrimary"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:visibility="gone" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=" جنية مشتريات "
-                android:textColor="@color/white"
-                android:textSize="18sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/nokta"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:orientation="horizontal">
+            android:text="  نقطة"
+            android:textColor="@color/nbety"
+            android:textSize="25sp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/points"
+            app:layout_constraintRight_toLeftOf="@+id/points"
+            app:layout_constraintTop_toTopOf="@+id/points" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="تكسب "
-                android:textColor="@color/white"
-                android:textSize="18sp" />
-
-
-            <TextView
-                android:id="@+id/line3Number3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="  "
-                android:textColor="@color/colorPrimary"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/line3Number3_ED"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:maxLines="1"
-                android:textColor="@color/colorPrimary"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:visibility="gone" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=" نقطة"
-                android:textColor="@color/white"
-                android:textSize="18sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/done_fab"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:orientation="horizontal">
+            android:layout_margin="10dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:srcCompat="@drawable/ic_done_black_24dp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="من "
-                android:textColor="@color/white"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/line4Number1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="       "
-                android:textColor="@color/colorPrimary"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/line4Number1_ED"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:maxLines="1"
-                android:textColor="@color/colorPrimary"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:visibility="gone" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=" جنية الي "
-                android:textColor="@color/white"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/line4Number2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="       "
-                android:textColor="@color/colorPrimary"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/line4Number2_ED"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:maxLines="1"
-                android:textColor="@color/colorPrimary"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:visibility="gone" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=" جنية مشتريات "
-                android:textColor="@color/white"
-                android:textSize="18sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/edit_fab"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="تكسب "
-                android:textColor="@color/white"
-                android:textSize="18sp" />
-
-
-            <TextView
-                android:id="@+id/line4Number3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="  "
-                android:textColor="@color/colorPrimary"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/line4Number3_ED"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:maxLines="1"
-                android:textColor="@color/colorPrimary"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:visibility="gone" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=" نقطة"
-                android:textColor="@color/white"
-                android:textSize="18sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="من "
-                android:textColor="@color/white"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/line5Number1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="       "
-                android:textColor="@color/colorPrimary"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/line5Number1_ED"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:maxLines="1"
-                android:textColor="@color/colorPrimary"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:visibility="gone" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=" جنية الي "
-                android:textColor="@color/white"
-                android:textSize="18sp" />
-
-            <TextView
-                android:id="@+id/line5Number2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="       "
-                android:textColor="@color/colorPrimary"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/line5Number2_ED"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:maxLines="1"
-                android:textColor="@color/colorPrimary"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:visibility="gone" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=" جنية مشتريات "
-                android:textColor="@color/white"
-                android:textSize="18sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="تكسب "
-                android:textColor="@color/white"
-                android:textSize="18sp" />
-
-
-            <TextView
-                android:id="@+id/line5Number3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="  "
-                android:textColor="@color/colorPrimary"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/line5Number3_ED"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="number"
-                android:maxLines="1"
-                android:textColor="@color/colorPrimary"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:visibility="gone" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=" نقطة"
-                android:textColor="@color/white"
-                android:textSize="18sp" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/raseed"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="رصيد\nنقاطك "
-        android:textColor="@color/nbety"
-        android:textSize="25sp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/points"
-        app:layout_constraintLeft_toRightOf="@+id/points"
-        app:layout_constraintTop_toTopOf="@+id/points" />
-
-    <TextView
-        android:id="@+id/points"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="  "
-        android:textColor="@color/colorPrimary"
-        android:textSize="50sp"
-        android:textStyle="bold"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
-
-    <TextView
-        android:id="@+id/nokta"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="  نقطة"
-        android:textColor="@color/nbety"
-        android:textSize="25sp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/points"
-        app:layout_constraintRight_toLeftOf="@+id/points"
-        app:layout_constraintTop_toTopOf="@+id/points" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/done_fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:srcCompat="@drawable/ic_done_black_24dp" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/edit_fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:srcCompat="@drawable/ic_edit_black_24dp" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_margin="10dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:srcCompat="@drawable/ic_edit_black_24dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
