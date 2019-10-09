@@ -72,7 +72,7 @@ class PreviousOrdersAdapter extends BaseAdapter {
         if (finalOrdersStatus_list != null) {
 
             String status = finalOrdersStatus_list.get(i);
-            if (status.equals("لم يبدأ تحضير طلبك بعد ...")) {
+            if (status == null || status.equals("لم يبدأ تحضير طلبك بعد ...")) {
                 date.setTextColor(context.getResources().getColor(R.color.yellow));
                 view.setBackgroundColor(context.getResources().getColor(R.color.smawy2));
 

@@ -64,7 +64,7 @@ public class PreviousOrders2Activity extends AppCompatActivity implements OrderH
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     String status = Utilities.getValueIfNotNull(dataSnapshot);
 
-                    if (status.equals("لم يبدأ تحضير طلبك بعد ...")) {
+                    if (status==null || status.equals("لم يبدأ تحضير طلبك بعد ...")) {
                         orderReference.child("status").setValue("جاري تحضير طلبك ...");
                     }
                 }

@@ -101,7 +101,7 @@ class OrderAdapter extends BaseAdapter {
 
             numberPicker.setVisibility(View.VISIBLE);
             numberPicker.setMinValue(0);
-            numberPicker.setMaxValue(100);
+            numberPicker.setMaxValue(500);
 
             //Gets whether the selector wheel wraps when reaching the min/max value.
             numberPicker.setWrapSelectorWheel(true);

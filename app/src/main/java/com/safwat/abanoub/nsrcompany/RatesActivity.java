@@ -102,67 +102,74 @@ public class RatesActivity extends AppCompatActivity {
                                                                 = Utilities
                                                                 .reverseStringsList(reversed_productsPushIDs_list);
 
-                                                        final ArrayList<Product> rateProducts_list = new ArrayList<>();
-                                                        for (int i = 0; i < productsPushIDs_list.size(); i++) {
-                                                            final int position = i;
-                                                            final String pushID = productsPushIDs_list.get(position);
+                                                        if (productsPushIDs_list.size() == 0) {
+                                                            noData.setVisibility(View.VISIBLE);
 
-                                                            firebaseDatabase.getReference().child("Products")
-                                                                    .child(pushID)
-                                                                    .addValueEventListener(new ValueEventListener() {
-                                                                        @Override
-                                                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                        } else {
+                                                            noData.setVisibility(View.GONE);
 
-                                                                            Product value = Utilities.getProduct(dataSnapshot);
-                                                                            if (value != null)
-                                                                                rateProducts_list.add(value);
+                                                            final ArrayList<Product> rateProducts_list = new ArrayList<>();
+                                                            for (int i = 0; i < productsPushIDs_list.size(); i++) {
+                                                                final int position = i;
+                                                                final String pushID = productsPushIDs_list.get(position);
 
-                                                                            if (position == productsPushIDs_list.size() - 1) {
+                                                                firebaseDatabase.getReference().child("Products")
+                                                                        .child(pushID)
+                                                                        .addValueEventListener(new ValueEventListener() {
+                                                                            @Override
+                                                                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                                                                                final ArrayList<String> productsRates_list
-                                                                                        = new ArrayList<>();
-                                                                                for (int j = 0; j < rateProducts_list.size(); j++) {
+                                                                                Product value = Utilities.getProduct(dataSnapshot);
+                                                                                if (value != null)
+                                                                                    rateProducts_list.add(value);
 
-                                                                                    final int position2 = j;
-                                                                                    final String pushID2 = rateProducts_list.get(position2).pushID;
+                                                                                if (position == productsPushIDs_list.size() - 1) {
 
-                                                                                    firebaseDatabase.getReference().child("Rates")
-                                                                                            .child(clicked_rater_UID)
-                                                                                            .child(pushID2).child("rate")
-                                                                                            .addValueEventListener(new ValueEventListener() {
-                                                                                                @Override
-                                                                                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                                                    final ArrayList<String> productsRates_list
+                                                                                            = new ArrayList<>();
+                                                                                    for (int j = 0; j < rateProducts_list.size(); j++) {
 
-                                                                                                    productsRates_list.add(Utilities
-                                                                                                            .getValueIfNotNull(dataSnapshot));
+                                                                                        final int position2 = j;
+                                                                                        final String pushID2 = rateProducts_list.get(position2).pushID;
 
-                                                                                                    if (position2
-                                                                                                            == rateProducts_list.size() - 1) {
+                                                                                        firebaseDatabase.getReference().child("Rates")
+                                                                                                .child(clicked_rater_UID)
+                                                                                                .child(pushID2).child("rate")
+                                                                                                .addValueEventListener(new ValueEventListener() {
+                                                                                                    @Override
+                                                                                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                                                                                                        RatesAdapter adapter = new RatesAdapter(
-                                                                                                                RatesActivity.this
-                                                                                                                , rateProducts_list
-                                                                                                                , productsRates_list
-                                                                                                                , userType);
-                                                                                                        listView.setAdapter(adapter);
-                                                                                                        Utilities.getTotalHeightofListView(listView, 250);
+                                                                                                        productsRates_list.add(Utilities
+                                                                                                                .getValueIfNotNull(dataSnapshot));
+
+                                                                                                        if (position2
+                                                                                                                == rateProducts_list.size() - 1) {
+
+                                                                                                            RatesAdapter adapter = new RatesAdapter(
+                                                                                                                    RatesActivity.this
+                                                                                                                    , rateProducts_list
+                                                                                                                    , productsRates_list
+                                                                                                                    , userType);
+                                                                                                            listView.setAdapter(adapter);
+                                                                                                            Utilities.getTotalHeightofListView(listView, 250);
+                                                                                                        }
                                                                                                     }
-                                                                                                }
 
-                                                                                                @Override
-                                                                                                public void onCancelled(@NonNull DatabaseError databaseError) {
+                                                                                                    @Override
+                                                                                                    public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                                                                                                }
-                                                                                            });
+                                                                                                    }
+                                                                                                });
+                                                                                    }
                                                                                 }
                                                                             }
-                                                                        }
 
-                                                                        @Override
-                                                                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                                                                            @Override
+                                                                            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                                                                        }
-                                                                    });
+                                                                            }
+                                                                        });
+                                                            }
                                                         }
                                                     }
 
@@ -194,27 +201,33 @@ public class RatesActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String[] ratesList = ratesAdapter.userRatesList;
-                boolean foundEmptyItem = false;
+
+                ArrayList<String> ratedProductsUIDs_list = new ArrayList<>();
+                ArrayList<String> finalRate_list = new ArrayList<>();
 
                 for (int i = 0; i < ratesList.length; i++) {
-                    if (TextUtils.isEmpty(ratesList[i])) {
-                        foundEmptyItem = true;
+                    if (!TextUtils.isEmpty(ratesList[i])) {
+                        ratedProductsUIDs_list.add(products_list.get(i).pushID);
+                        finalRate_list.add(ratesList[i]);
                     }
                 }
 
-                if (foundEmptyItem) {
-                    Toast.makeText(RatesActivity.this, "من فضلك: قيم كل المنتجات قبل الارسال", Toast.LENGTH_LONG).show();
+                String comment_str = comment_editText.getText().toString();
+
+                if (ratedProductsUIDs_list.size() == 0 && TextUtils.isEmpty(comment_str)) {
+                    Toast.makeText(RatesActivity.this, "من فضلك: قيم المنتجات او اكتب تعليق", Toast.LENGTH_LONG).show();
+
                 } else {
                     String currentUID = Utilities.getCurrentUID();
+                    DatabaseReference rate_ref = firebaseDatabase.getReference().child("Rates").child(currentUID);
 
-                    for (int i = 0; i < products_list.size(); i++) {
-                        firebaseDatabase.getReference().child("Rates").child(currentUID)
-                                .child(products_list.get(i).pushID).child("rate").setValue(ratesList[i]);
+                    rate_ref.setValue(null);
+
+                    for (int i = 0; i < ratedProductsUIDs_list.size(); i++) {
+                        rate_ref.child(ratedProductsUIDs_list.get(i)).child("rate").setValue(finalRate_list.get(i));
                     }
 
-                    String comment_str = comment_editText.getText().toString();
-                    firebaseDatabase.getReference().child("Rates").child(currentUID).child("comment")
-                            .setValue(comment_str);
+                    rate_ref.child("comment").setValue(comment_str);
 
                     final DatabaseReference fullname_ref = firebaseDatabase.getReference().child("Users")
                             .child(currentUID).child("fullname");
@@ -237,6 +250,7 @@ public class RatesActivity extends AppCompatActivity {
                                 finish();
                             }
                         }
+
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
 

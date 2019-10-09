@@ -1,6 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'NSRCompany'
+            keyPassword 'shenoda-nsrcompany'
+            storeFile file("${rootDir}/keystore.jks")
+            storePassword 'shenoda-nsrcompany'
+        }
+    }
     compileSdkVersion 28
     buildToolsVersion "29.0.2"
     defaultConfig {
@@ -20,6 +28,12 @@ android {
     defaultConfig {
         vectorDrawables.useSupportLibrary = true
         //Before using Vector Asset Studio, you must add this statement
+    }
+    lintOptions {
+        checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+//        abortOnError false
     }
 }
 
