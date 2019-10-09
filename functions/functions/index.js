@@ -327,7 +327,7 @@ exports.sendNotification5ToUsers = functions.database.ref("pointsNotify/{randomk
         })          
 });
 
-exports.sendNotificationToAdmins = functions.database.ref("orderNotification/{randomkey}").onWrite((change, event) => {
+exports.sendNotificationToAdmins = functions.database.ref("orderNotification/{randomkey}").onUpdate((change, event) => {
      
     var adminsTokensArr = [];
            
@@ -387,11 +387,11 @@ exports.sendNotificationToAdmins = functions.database.ref("orderNotification/{ra
 });
 
 
-exports.sendNotification2ToAdmins = functions.database.ref("rateNotification/{randomkey}").onWrite((change, event) => {
+exports.sendNotification2ToAdmins = functions.database.ref("rateNotification/{randomkey}").onUpdate((change, event) => {
     
     var adminsTokensArr = [];
            
-    return admin.database().ref("rateNotificaton").once('value', snap=>{
+    return admin.database().ref("rateNotification").once('value', snap=>{
        
        var userFullName = snap.child("fullname").val()
         

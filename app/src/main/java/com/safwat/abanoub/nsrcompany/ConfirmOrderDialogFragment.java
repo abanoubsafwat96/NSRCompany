@@ -21,6 +21,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
@@ -44,8 +46,9 @@ public class ConfirmOrderDialogFragment extends DialogFragment {
     private ValueEventListener myCurrentPointsEventListener;
     private PointsItem pointsItems;
     private int earnedPoints, myCurrentPoints, newMyCurrentPoints;
-    float totalPrice,discount;
+    float totalPrice, discount;
     private ProgressDialog progressDialog1;
+    private ValueEventListener valueEventListener;
 
     /**
      * Create a new instance of MyDialogFragment, to pass "newUser" as an argument to this dialog.
@@ -159,7 +162,12 @@ public class ConfirmOrderDialogFragment extends DialogFragment {
                             discount = newMyCurrentPoints * Float.parseFloat(pointsItems.pointPrice);
 
                             totalPrice_TV.setText(totalPrice + "");
-                            totalPrice_TV2.setText((totalPrice - discount) + "");
+
+                            float totalPriceAfterDiscount = totalPrice - discount;
+                            if (totalPriceAfterDiscount >= 0)
+                                totalPrice_TV2.setText(totalPriceAfterDiscount + "");
+                            else
+                                totalPrice_TV2.setText("0");
 
                             if (progressDialog1.isShowing()) {
                                 progressDialog1.dismiss();
@@ -206,7 +214,9 @@ public class ConfirmOrderDialogFragment extends DialogFragment {
 
                     if (pointsItems != null) {
 
-                        databaseReference = firebaseDatabase.getReference().child("Orders").child(Utilities.getCurrentUID())
+                        String currentUID = Utilities.getCurrentUID();
+
+                        databaseReference = firebaseDatabase.getReference().child("Orders").child(currentUID)
                                 .child(Calendar.getInstance().getTimeInMillis() + "");
 
                         databaseReference.child("status").setValue("لم يبدأ تحضير طلبك بعد ...");
@@ -220,36 +230,59 @@ public class ConfirmOrderDialogFragment extends DialogFragment {
                             databaseReference.child(pushID).setValue(orderItem);
                         }
 
-                        //notification ref edit to start cloud function
-                        DatabaseReference notif_ref = firebaseDatabase.getReference()
-                                .child("orderNotification").child("randomkey");
-                        notif_ref.setValue(notif_ref.push().getKey());
+                        final DatabaseReference fullname_ref = firebaseDatabase.getReference().child("Users")
+                                .child(currentUID).child("fullname");
+                        valueEventListener = new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                String currentFullname = Utilities.getValueIfNotNull(dataSnapshot);
 
-                        //apply discount or not
-                        if (checkBox.isChecked()) {
+                                fullname_ref.removeEventListener(valueEventListener);
 
-                            if (discount != 0)
-                                databaseReference.child("discount").setValue(discount + "");
+                                if (currentFullname != null) {
+                                    //notification ref edit to start cloud function
+                                    DatabaseReference notif_ref = firebaseDatabase.getReference()
+                                            .child("orderNotification");
+                                    Map<String, String> valuesMap = new HashMap<>();
+                                    valuesMap.put("randomkey", notif_ref.push().getKey());
+                                    valuesMap.put("fullname", currentFullname);
+                                    notif_ref.setValue(valuesMap);
 
-                            myCurrentPointsReference.setValue("0");
-                        }else {
-                            databaseReference.child("discount").setValue("0");
+                                    //apply discount or not
+                                    if (checkBox.isChecked()) {
 
-                            if (myCurrentPoints != newMyCurrentPoints) {
+                                        if (discount != 0)
+                                            databaseReference.child("discount").setValue(discount + "");
 
-                                myCurrentPointsReference.removeEventListener(myCurrentPointsEventListener);
-                                myCurrentPointsReference.setValue(newMyCurrentPoints);
+                                        myCurrentPointsReference.setValue("0");
+                                    } else {
+                                        databaseReference.child("discount").setValue("0");
+
+                                        if (myCurrentPoints != newMyCurrentPoints) {
+
+                                            myCurrentPointsReference.removeEventListener(myCurrentPointsEventListener);
+                                            myCurrentPointsReference.setValue(newMyCurrentPoints + "");
+                                        }
+                                    }
+
+                                    if (getContext() != null)
+                                        Toast.makeText(getContext(), "تم الطلب بنجاح", Toast.LENGTH_SHORT).show();
+
+                                    if (progressDialog1.isShowing()) {
+                                        progressDialog1.dismiss();
+                                    }
+
+                                    dismiss();
+                                }
                             }
-                        }
 
-                        if (getContext() != null)
-                            Toast.makeText(getContext(), "تم الطلب بنجاح", Toast.LENGTH_SHORT).show();
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                        if (progressDialog1.isShowing()) {
-                            progressDialog1.dismiss();
-                        }
+                            }
+                        };
+                        fullname_ref.addValueEventListener(valueEventListener);
                     }
-                    dismiss();
 
                 } else
                     Toast.makeText(getContext(), R.string.check_internet_connection, Toast.LENGTH_SHORT).show();

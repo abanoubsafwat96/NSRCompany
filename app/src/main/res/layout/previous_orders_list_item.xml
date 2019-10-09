@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="2dp"
         android:layout_marginLeft="10dp"
+        android:textDirection="rtl"
         android:layout_marginRight="10dp"
         android:layout_marginTop="15dp"
         android:textColor="@color/yellow"
@@ -29,6 +30,7 @@
             android:id="@+id/orderOwnerFullname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textDirection="rtl"
             android:layout_alignParentRight="true"
             android:textColor="@color/white"
             android:textSize="15dp"
@@ -37,6 +39,7 @@
         <TextView
             android:id="@+id/orderOwnerPhoneNumber"
             android:layout_width="wrap_content"
+            android:textDirection="rtl"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:textColor="@color/white"

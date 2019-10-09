@@ -153,6 +153,7 @@ public class PointsActivity extends AppCompatActivity {
                 DatabaseReference pointsNotify_ref=firebaseDatabase.getReference().child("pointsNotify");
                 String randomkey=pointsNotify_ref.push().getKey();
                 pointsNotify_ref.child("randomkey").setValue(randomkey);
+                Toast.makeText(PointsActivity.this, "تم ارسال تذكيرا لكل المستخدمين", Toast.LENGTH_SHORT).show();
             }
         });
 

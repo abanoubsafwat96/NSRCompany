@@ -83,14 +83,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/totalPriceRelative"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
-            android:layout_centerHorizontal="true"
-            android:text="استبدال نقاطك"
+            android:background="@color/grey_toolbar"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:background="@color/grey_toolbar"
             android:shadowColor="@color/nbety"
+            android:text="استبدال نقاطك"
             android:textColor="@color/nbety"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -99,25 +99,24 @@
             android:id="@+id/isReplacePoints"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="اذا استبدلت نقاطك يصبح"
-            android:textColor="@color/nbety"
-
-            android:textSize="20sp"
             android:layout_below="@+id/checkbox"
             android:layout_centerHorizontal="true"
+
+            android:text="اذا استبدلت نقاطك يصبح"
+            android:textColor="@color/nbety"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <RelativeLayout
             android:id="@+id/totalPriceRelative2"
             android:layout_width="match_parent"
-            android:gravity="center"
             android:layout_height="wrap_content"
             android:layout_below="@+id/isReplacePoints"
+            android:gravity="center"
             android:padding="7dp">
 
             <TextView
                 android:id="@+id/egmaly2"
-                android:layout_below="@+id/isReplacePoints"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -131,7 +130,6 @@
                 android:id="@+id/totalPrice_TV2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/isReplacePoints"
                 android:layout_marginLeft="10dp"
                 android:layout_toLeftOf="@+id/egmaly2"
                 android:text="  "
@@ -144,12 +142,10 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_toLeftOf="@+id/totalPrice_TV2"
-                android:layout_below="@+id/isReplacePoints"
                 android:text="جنية"
                 android:textColor="@color/nbety"
                 android:textSize="20sp"
                 android:textStyle="bold" />
-
         </RelativeLayout>
 
         <Button

@@ -2,7 +2,6 @@
     <string name="app_name">شركة النسر</string>
     <string name="loginAsAdmin"><u>تسجيل الدخول كمدير</u></string>
     <string name="fields_cannot_be_empty">يجب عليك ادخال البيانات</string>
-    <string name="wrong_email_password">البريد الكتروني او كلمة مرور غير صحيحة</string>
     <string name="authentication_failed">فشلت المصادقة</string>
     <string name="check_internet_connection">تحقق من اتصال الإنترنت</string>
     <string name="default_notification_channel_id">MSG_CH_01</string>

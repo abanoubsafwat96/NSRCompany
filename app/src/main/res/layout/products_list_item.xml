@@ -23,6 +23,7 @@
             android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textDirection="rtl"
             android:layout_marginBottom="2dp"
             android:text=""
             android:textColor="@color/colorPrimary"
@@ -38,6 +39,7 @@
                 android:id="@+id/price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textDirection="rtl"
                 android:text="15"
                 android:textColor="@color/white"
                 android:textSize="15dp" />
@@ -45,6 +47,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textDirection="rtl"
                 android:text=" جنية"
                 android:textColor="@color/white"
                 android:textSize="15dp" />

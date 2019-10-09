@@ -28,6 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="2dp"
             android:text=""
+            android:textDirection="rtl"
             android:textColor="@color/colorPrimary"
             android:textSize="20dp"
             android:textStyle="bold" />
@@ -40,6 +41,7 @@
             <TextView
                 android:id="@+id/price"
                 android:layout_width="wrap_content"
+                android:textDirection="rtl"
                 android:layout_height="wrap_content"
                 android:text="15"
                 android:textColor="@color/white"
@@ -49,6 +51,7 @@
                 android:id="@+id/gneh"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textDirection="rtl"
                 android:text=" جنية"
                 android:textColor="@color/white"
                 android:textSize="15dp" />
@@ -79,6 +82,7 @@
             android:id="@+id/quantity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textDirection="rtl"
             android:layout_gravity="center"
             android:layout_marginLeft="7dp"
             android:text="15"
@@ -89,6 +93,7 @@
             android:id="@+id/dasta"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textDirection="rtl"
             android:layout_gravity="center"
             android:layout_marginLeft="7dp"
             android:text="دستة"

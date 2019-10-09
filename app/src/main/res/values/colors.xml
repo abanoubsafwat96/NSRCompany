@@ -7,20 +7,14 @@
     <color name="white">#fff</color>
     <color name="yellow">#FE8A00</color>
     <color name="black">#000</color>
-    <color name="trquaz">#0091B0</color>
     <color name="grey_toolbar">#DCE2E2</color>
     <color name="grey_buttons">#929899</color>
     <color name="grey_login">#5A5E5E</color>
-    <color name="disabled_button">#cccccc</color>
     <color name="grey_activities">#3a3a3a</color>
-    <color name="dark_grey">#424242</color>
-    <color name="hiperlink">#0000EE</color>
 
     <color name="smawy3">#BFD6F2</color>
     <color name="smawy2">#005aca</color>
     <color name="smawy">#6eafff</color>
-    <color name="smawy2_aft7_shwya">#0065e4</color>
 
-    <color name="red">#F92616</color>
     <color name="nbety">#7c130b</color>
 </resources>

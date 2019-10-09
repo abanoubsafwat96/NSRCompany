@@ -17,6 +17,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,7 +31,7 @@ public class RatesActivity extends AppCompatActivity {
     ListView listView;
     LinearLayout addCommentLinear;
 
-    ArrayList<Product> products_list,reversed_products_list;
+    ArrayList<Product> products_list, reversed_products_list;
     RatesAdapter ratesAdapter;
 
     FirebaseDatabase firebaseDatabase;
@@ -37,6 +39,7 @@ public class RatesActivity extends AppCompatActivity {
 
     String userType;
     String clicked_rater_UID;
+    private ValueEventListener valueEventListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +71,7 @@ public class RatesActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 reversed_products_list = Utilities.getAllProducts(dataSnapshot);
-                products_list=Utilities.reverseProdustsList(reversed_products_list);
+                products_list = Utilities.reverseProdustsList(reversed_products_list);
 
                 if (products_list.size() == 0)
                     noData.setVisibility(View.VISIBLE);
@@ -85,7 +88,7 @@ public class RatesActivity extends AppCompatActivity {
                                         if (comment != null && !TextUtils.isEmpty(comment)) {
                                             comment_textView.setText("تعليق: " + comment);
                                             comment_textView.setVisibility(View.VISIBLE);
-                                        }else
+                                        } else
                                             comment_textView.setVisibility(View.GONE);
 
                                         firebaseDatabase.getReference().child("Rates").child(clicked_rater_UID)
@@ -110,8 +113,8 @@ public class RatesActivity extends AppCompatActivity {
                                                                         @Override
                                                                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                                                                            Product value=Utilities.getProduct(dataSnapshot);
-                                                                            if (value!=null)
+                                                                            Product value = Utilities.getProduct(dataSnapshot);
+                                                                            if (value != null)
                                                                                 rateProducts_list.add(value);
 
                                                                             if (position == productsPushIDs_list.size() - 1) {
@@ -213,13 +216,33 @@ public class RatesActivity extends AppCompatActivity {
                     firebaseDatabase.getReference().child("Rates").child(currentUID).child("comment")
                             .setValue(comment_str);
 
-                    //notification ref edit to start cloud function
-                    DatabaseReference notif_ref=firebaseDatabase.getReference()
-                            .child("rateNotification").child("randomkey");
-                    notif_ref.setValue(notif_ref.push().getKey());
+                    final DatabaseReference fullname_ref = firebaseDatabase.getReference().child("Users")
+                            .child(currentUID).child("fullname");
+                    valueEventListener = new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            String currentFullname = Utilities.getValueIfNotNull(dataSnapshot);
 
-                    Toast.makeText(RatesActivity.this, "تم الارسال بنجاح", Toast.LENGTH_SHORT).show();
-                    finish();
+                            fullname_ref.removeEventListener(valueEventListener);
+
+                            if (currentFullname != null) {
+                                //notification ref edit to start cloud function
+                                DatabaseReference notif_ref = firebaseDatabase.getReference().child("rateNotification");
+                                Map<String, String> valuesMap = new HashMap<>();
+                                valuesMap.put("randomkey", notif_ref.push().getKey());
+                                valuesMap.put("fullname", currentFullname);
+                                notif_ref.setValue(valuesMap);
+
+                                Toast.makeText(RatesActivity.this, "تم الارسال بنجاح", Toast.LENGTH_SHORT).show();
+                                finish();
+                            }
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    };
+                    fullname_ref.addValueEventListener(valueEventListener);
                 }
             }
         });
