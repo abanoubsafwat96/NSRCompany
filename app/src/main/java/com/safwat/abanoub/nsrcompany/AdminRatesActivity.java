@@ -4,8 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -20,6 +20,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class AdminRatesActivity extends AppCompatActivity {
 
+    TextView noData;
     ListView listView;
 
     FirebaseDatabase firebaseDatabase;
@@ -31,7 +32,9 @@ public class AdminRatesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_rates);
 
+        noData = findViewById(R.id.noData);
         listView = findViewById(R.id.listView);
+
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference().child("Rates");
 
@@ -40,31 +43,38 @@ public class AdminRatesActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 raters_UIDs = Utilities.getUIDs(dataSnapshot);
 
-                final ArrayList<String> ratersNames = new ArrayList<>();
+                if (raters_UIDs.size() == 0) {
+                    noData.setVisibility(View.VISIBLE);
 
-                for (int i = 0; i < raters_UIDs.size(); i++) {
-                    final int position = i;
+                } else {
+                    noData.setVisibility(View.GONE);
 
-                    firebaseDatabase.getReference().child("Users").child(raters_UIDs.get(position)).child("fullname")
-                            .addValueEventListener(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    final ArrayList<String> ratersNames = new ArrayList<>();
 
-                                    String fullname = Utilities.getValueIfNotNull(dataSnapshot);
-                                    ratersNames.add(fullname);
+                    for (int i = 0; i < raters_UIDs.size(); i++) {
+                        final int position = i;
 
-                                    if (position == raters_UIDs.size() - 1) {
-                                        RatersNamesAdapter adapter=new RatersNamesAdapter(
-                                                AdminRatesActivity.this,ratersNames);
-                                        listView.setAdapter(adapter);
+                        firebaseDatabase.getReference().child("Users").child(raters_UIDs.get(position)).child("fullname")
+                                .addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                                        String fullname = Utilities.getValueIfNotNull(dataSnapshot);
+                                        ratersNames.add(fullname);
+
+                                        if (position == raters_UIDs.size() - 1) {
+                                            RatersNamesAdapter adapter = new RatersNamesAdapter(
+                                                    AdminRatesActivity.this, ratersNames);
+                                            listView.setAdapter(adapter);
+                                        }
                                     }
-                                }
 
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError databaseError) {
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                                }
-                            });
+                                    }
+                                });
+                    }
                 }
             }
 
