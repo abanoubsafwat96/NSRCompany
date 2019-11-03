@@ -163,8 +163,13 @@ public class UsersLogInActivity extends AppCompatActivity {
 
     private void verifySignInCode() {
         String code = verificationCode.getText().toString();
-        PhoneAuthCredential credential = PhoneAuthProvider.getCredential(codeSent, code);
-        signInWithPhoneAuthCredential(credential);
+
+        try {
+            PhoneAuthCredential credential = PhoneAuthProvider.getCredential(codeSent, code);
+            signInWithPhoneAuthCredential(credential);
+        }catch (Exception e){
+            Toast.makeText(this, "Invalid Credentials\n"+e , Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void sendVerificationCode() {
@@ -224,9 +229,16 @@ public class UsersLogInActivity extends AppCompatActivity {
                                                         // Get new Instance ID token
                                                         String notifications_token = task.getResult().getToken();
 
-                                                        User new_user = new User(fullname.getText().toString(),
+                                                        User new_user;
+
+                                                        if(old_user!=null)
+                                                            new_user = new User(fullname.getText().toString(),
                                                                 mobile.getText().toString(), notifications_token
                                                                 ,old_user.points);
+                                                        else
+                                                            new_user = new User(fullname.getText().toString(),
+                                                                    mobile.getText().toString(), notifications_token
+                                                                    ,"0");
 
                                                         databaseReference.removeEventListener(valueEventListener);
                                                         databaseReference.setValue(new_user);
