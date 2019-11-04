@@ -78,6 +78,8 @@ public class UsersLogInActivity extends AppCompatActivity {
                 //     User action.
                 Log.d("TAG", "onVerificationCompleted:" + credential);
                 Toast.makeText(UsersLogInActivity.this, "اكتمل التحقق", Toast.LENGTH_SHORT).show();
+
+                signInWithPhoneAuthCredential(credential);
             }
 
             @Override
@@ -149,7 +151,7 @@ public class UsersLogInActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (codeSent != null)
-                    verifySignInCode();
+                    verifySignInCodeAndSignInIfTrue();
             }
         });
 
@@ -161,7 +163,7 @@ public class UsersLogInActivity extends AppCompatActivity {
         });
     }
 
-    private void verifySignInCode() {
+    private void verifySignInCodeAndSignInIfTrue() {
         String code = verificationCode.getText().toString();
 
         try {
